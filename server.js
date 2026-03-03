@@ -5,15 +5,13 @@ const app = express();
 app.use(express.json());
 
 app.post("/webhook", (req, res) => {
-    console.log("Gelen veri:", req.body);
+    console.log("==== WEBHOOK TETİKLENDİ ====");
+    console.log("BODY:", req.body);
 
-    // Hediyeleri kaydet
-    if (req.body.event === "gift") {
-        const data = JSON.stringify(req.body) + "\n";
-        fs.appendFileSync("gifts.txt", data);
-    }
+    const data = JSON.stringify(req.body) + "\n";
+    fs.appendFileSync("gifts.txt", data);
 
-    res.sendStatus(200);
+    res.status(200).send("OK");
 });
 
 app.get("/", (req, res) => {
